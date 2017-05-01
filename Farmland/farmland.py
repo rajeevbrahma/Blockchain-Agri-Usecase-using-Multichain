@@ -11,13 +11,12 @@ from MultichainPython import Multichainpython
 from fileparser import ConfigFileParser
 
 
-LOG_FILENAME = 'Farmland.log'
+LOG_FILENAME = 'farmland.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG,format='%(asctime)s, %(levelname)s, %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 class Farmland:
 	def __init__(self,rpcuser,rpcpasswd,rpchost,rpcport,chainname):
 		print "Farmland"
-		# self.mchain = Multichainpython(rpcuser,rpcpasswd,rpchost,rpcport,chainname)
 		self.rpcuser = rpcuser
 		self.rpcpasswd = rpcpasswd
 		self.rpchost = rpchost
