@@ -49,16 +49,21 @@ class Retailstore:
             assetunit = 1# This also a random generated based on logic still not clear 
             assetnativeamount =0 # not clear
             assetcustomfield = {'currency':'dollars','owner':'Peter-Retailer'}# will be generated based on sensor data, fields will be decided$
-            self.assetsubscribe(assetname)
             issueRSasset_return = self.mchain.issueAsset(assetaddress,assetdetails,assetquantity,assetunit,assetnativeamount,assetcustomfield)
-            publish_handler({"messagetype":"resp","message":issueRSasset_return})
+            assetdescription = {"assetname":assetname,"assetquantity":assetquantity,"assetmetrics":"dollars"}
+            
+            message = {"op-return":issueRSasset_return,"assetdescription":assetdescription}
+            
+            self.assetsubscribe(assetname)
+            publish_handler({"messagecode":"issueasset","messagetype":"resp","message":message})
+
+
         except Exception as e:
             print e,"error in issueHWasset"
-    def issuemoreFarmasset(self,assetname,assetcustomfield):
-        assetaddress = self.mchain.accountAddress()
-        issuemoreFarmasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
-        publish_handler({"messagetype":"resp","message":issuemoreFarmasset_return})
+            message = {"op-return":"error","message":e}
+            publish_handler({"messagecode":"issueasset","messagetype":"resp","message":message})
 
+    
     def createExchange(self,ownasset,otherasset):
         try:
             # Here asset will be a dictionary ex: {"asset1":1}

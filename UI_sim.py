@@ -62,7 +62,7 @@ def main():
 			publish_handler(warechannel,{"messagecode":"issueasset","messagetype":"req"})
 
 		elif(inpt == "3"):
-			publish_handler(warechannel,{"messagecode":"issueasset","messagetype":"req"})	
+			publish_handler(retilchannel,{"messagecode":"issueasset","messagetype":"req"})	
 		elif(inpt == "4"):
 			publish_handler(farmchannel,{"messagetype":"req","messagecode":"createexchange","ownasset":{"crop":20},"otherasset":{"warehousemoney":20}})
 		elif(inpt == "5"):	
@@ -72,16 +72,23 @@ def main():
 			publish_handler(farmchannel,{"messagetype":"req","messagecode":"createexchange","ownasset":{"warehousemoney":20},"otherasset":{"retailmoney":20}})
 		elif(inpt == "7"):	
 			publish_handler(warechannel,{"messagetype":"req","messagecode":"decodeexchange","hexblob":hexblob,"ownasset":{"retailmoney":20},"otherasset":{"warehousemoney":20}})
-			
+		elif(inpt == '8'):
+			inpt2 = raw_input("1) crop  2) warehousemoney 3) retailmoney \n\n\t")
+			if inpt2 == "1":
+				publish_handler(warechannel,{"messagecode":"issuemoreasset","messagetype":"req","asset":"crop","assetcustomfield":{"asset-arrivaldate":,"asset-departuredate":'2017-05-07','2017-05-10',"assetstorageconditions":"Good"}})				
+			if inpt2 == "2":
+				pass
+			if inpt2 == "3":	
+				pass
 
 		elif(inpt == "0"):
-			inpt2 = raw_input("1) farmland  2) warehouse 3) retailstore \n\n\t")
-			if inpt2 == "1":
+			inpt3 = raw_input("1) farmland  2) warehouse 3) retailstore \n\n\t")
+			if inpt3 == "1":
 				publish_handler(farmchannel,{"messagetype":"req","messagecode":"assetbalance"})
-			if inpt2 == "2":	
+			if inpt3 == "2":	
 				publish_handler(warechannel,{"messagetype":"req","messagecode":"assetbalance"})
-			if inpt2 == "3":	
-				publish_handler(retilchannel,{"messagetype":"req","messagecode":"assetbalance"})		
+			if inpt3 == "3":	
+				publish_handler(retailchannel,{"messagetype":"req","messagecode":"assetbalance"})		
 		else: 
 			pass
 

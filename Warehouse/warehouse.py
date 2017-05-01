@@ -50,15 +50,35 @@ class Warehouse:
             assetnativeamount =0 # not clear
             assetcustomfield = {'currency':'dollars','owner':'John-Distributor'}# will be generated based on sensor data, fields will be decided$
             
-            self.assetsubscribe(assetname)
             issueWHasset_return = self.mchain.issueAsset(assetaddress,assetdetails,assetquantity,assetunit,assetnativeamount,assetcustomfield)
-            publish_handler({"messagetype":"resp","message":issueWHasset_return})
+            assetdescription = {"assetname":assetname,"assetquantity":assetquantity,"assetmetrics":"dollars"}
+            
+            message = {"op-return":issueWHasset_return,"assetdescription":assetdescription}
+            
+            self.assetsubscribe(assetname)
+            publish_handler({"messagecode":"issueasset","messagetype":"resp","message":message})
+
+
         except Exception as e:
             print e,"error in issueHWasset"
-    def issuemoreFarmasset(self,assetname,assetcustomfield):
-        assetaddress = self.mchain.accountAddress()
-        issuemoreFarmasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
-        publish_handler({"messagetype":"resp","message":issuemoreFarmasset_return})
+            message = {"op-return":"error","message":e}
+            publish_handler({"messagecode":"issueasset","messagetype":"resp","message":message})
+
+    
+    def issuemoreasset(self,assetname,assetcustomfield):
+        try:
+            assetaddress = self.mchain.accountAddress()
+            issuemoreasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
+            
+            assetdescription = {"assetname":assetname,"assetcustomfield":assetcustomfield}
+            message = {"op-return":issuemoreasset_return,"assetdescription":assetdescription}
+            publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
+        
+        except Exception as e:
+            print e,"issuemoreasset error"
+            message = {"op-return":"error","message":e}
+            publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
+
 
     def createExchange(self,ownasset,otherasset):
         try:
@@ -112,6 +132,9 @@ def callback(message,channel):
         if message["messagetype"] == "req":
             if message["messagecode"] == "issueasset":
                     WH.issueWHasset()
+            if message["messagecode"] == "issuemoreasset":
+                    WH.issueFSasset(message["asset"],message["assetcustomfield"])
+                    
             if message["messagecode"] == "createexchange":
                     WH.issueWHasset()
             if message["messagecode"] == "createexchange":

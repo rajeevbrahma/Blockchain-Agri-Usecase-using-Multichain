@@ -45,18 +45,35 @@ class Farmland:
 		    assetquantity = 100 # may be a fixed or random number g$
 		    assetunit = 1# This also a random generated based on lo$
 		    assetnativeamount =0 # not clear
-		    assetcustomfield ={'croptemp':'27','crophumidity':'10','startdate':'2017-03-01','enddate':'2017-04-30','farmer':'Mark-Farmer'}
+		    assetcustomfield ={"assetmetrics":"kgs",'croptemp':'27','crophumidity':'10','startdate':'2017-03-01','enddate':'2017-04-30',"asset-departuredate":'2017-05-05','farmer':'Mark-Farmer'}
 		    issueFSasset_return = self.mchain.issueAsset(assetaddress,assetdetails,assetquantity,assetunit,assetnativeamount,asssetcustomfield)
 
 		    self.assetsubscribe(assetname)
+		    
+		    assetdescription = {"assetname":assetname,"assetquantity":assetquantity,"assetmetrics":"kgs"}
+		    message = {"op-return":issueFSasset_return,"assetdescription":assetdescription}
 
-		    publish_handler({"messagecode":"issueasset","messagetype":"resp","message":issueFSasset_return})
+		    publish_handler({"messagecode":"issueasset","messagetype":"resp","message":message})
 		except Exception as e:
 		    print e,"erro in issueFSasset"
+		    message = {"op-return":"error","message":e}
+		    publish_handler({"messagecode":"issueasset","messagetype":"resp","message":message})
 
-	def issuemoreFarmasset(self,assetname,assetcustomfield):
-		assetaddress = self.mchain.accountAddress()
-		self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
+
+
+	# def issuemoreFarmasset(self,assetname,assetcustomfield):
+	# 	try:
+	# 		assetaddress = self.mchain.accountAddress()
+	# 		issuemorefarmasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
+			
+	# 		assetdescription = {"assetname":assetname,"assetcustomfield":assetcustomfield}
+	# 	    message = {"op-return":issuemorefarmasset_return,"assetdescription":assetdescription}
+	# 		publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
+		
+	# 	except Exception as e:
+	# 		print e,"issuemoreasset error"
+	# 		message = {"op-return":"error","message":e}
+	# 	    publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
 
 
 
@@ -69,11 +86,13 @@ class Farmland:
 			if prepare_return != False:
 				createex_return = self.mchain.createrawExchange(prepare_return["txid"],prepare_return["vout"],otherasset)
 				print createex_return
-				publish_handler({"messagecode":"createexchange","messagetype":"resp","hexblob":str(createex_return)})
+				message = {"op-return":createex_return,"hexblob":str(hexblob)}
+				publish_handler({"messagecode":"createexchange","messagetype":"resp","hexblob":message})
 			else:
 				publish_handler({"messagecode":"createexchange","messagetype":"resp","hexblob":""})   
 		except Exception as e:
-				print e,"error in createExchange"       
+				print e,"error in createExchange"
+				publish_handler({"messagecode":"createexchange","messagetype":"resp","hexblob":""})       
 		
 def pub_Init(): 
 	global pubnub
@@ -94,8 +113,10 @@ def callback(message,channel):
 		if message["messagetype"] == "req":
 		    if message["messagecode"] == "issueasset":
 		            FL.issueFSasset()
+		    if message["messagecode"] == "issuemoreasset":
+		            FL.issueFSasset(message["asset"],message["assetcustomfield"])
 		    if message["messagecode"] == "createexchange":
-		            FL.createExchange(message["ownasset"],message["otherasset"])
+		            FL.createExchange(message["ownasset"],message["otherasset"])		            
 		    if message["messagecode"] == "assettranx":
 		            FL.queryassettranx(message["asset"])
 		    if message["messagecode"] == "assetdetails":
