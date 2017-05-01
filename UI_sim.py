@@ -75,11 +75,11 @@ def main():
 		elif(inpt == '8'):
 			inpt2 = raw_input("1) crop  2) warehousemoney 3) retailmoney \n\n\t")
 			if inpt2 == "1":
-				publish_handler(warechannel,{"messagecode":"issuemoreasset","messagetype":"req","asset":"crop","assetcustomfield":{"asset-arrivaldate":,"asset-departuredate":'2017-05-07','2017-05-10',"assetstorageconditions":"Good"}})				
-			if inpt2 == "2":
-				pass
-			if inpt2 == "3":	
-				pass
+				publish_handler(warechannel,{"messagecode":"issuemoreasset","messagetype":"req","asset":"crop","assetcustomfield":{"asset-arrivaldate":'2017-05-07',"asset-departuredate":'2017-05-10',"assetstorageconditions":"Good"}})				
+			#if inpt2 == "2":
+				#pass
+			#if inpt2 == "3":	
+				#pass
 
 		elif(inpt == "0"):
 			inpt3 = raw_input("1) farmland  2) warehouse 3) retailstore \n\n\t")

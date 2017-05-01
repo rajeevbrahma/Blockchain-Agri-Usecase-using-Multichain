@@ -194,4 +194,5 @@ if __name__ == '__main__':
     chainname = cf.getConfig("chainname")
 
     WH = Warehouse(rpcuser,rpcpasswd,rpchost,rpcport,chainname)
+    WH.connectTochain()
     pub_Init()

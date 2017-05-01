@@ -174,4 +174,5 @@ if __name__ == '__main__':
     chainname = cf.getConfig("chainname")
 
     RS = Retailstore(rpcuser,rpcpasswd,rpchost,rpcport,chainname)
+    RS.connectTochain()
     pub_Init()

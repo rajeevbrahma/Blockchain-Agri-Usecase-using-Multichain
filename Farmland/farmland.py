@@ -43,10 +43,10 @@ class Farmland:
 		    assetname = "crop"
 		    assetdetails = {"name":assetname,"open":True} # along w$
 		    assetquantity = 100 # may be a fixed or random number g$
-		    assetunit = 1# This also a random generated based on lo$
+		    assetunit = 1 # This also a random generated based on lo$
 		    assetnativeamount =0 # not clear
 		    assetcustomfield ={"assetmetrics":"kgs",'croptemp':'27','crophumidity':'10','startdate':'2017-03-01','enddate':'2017-04-30',"asset-departuredate":'2017-05-05','farmer':'Mark-Farmer'}
-		    issueFSasset_return = self.mchain.issueAsset(assetaddress,assetdetails,assetquantity,assetunit,assetnativeamount,asssetcustomfield)
+		    issueFSasset_return = self.mchain.issueAsset(assetaddress,assetdetails,assetquantity,assetunit,assetnativeamount,assetcustomfield)
 
 		    self.assetsubscribe(assetname)
 		    
@@ -61,23 +61,7 @@ class Farmland:
 
 
 
-	# def issuemoreFarmasset(self,assetname,assetcustomfield):
-	# 	try:
-	# 		assetaddress = self.mchain.accountAddress()
-	# 		issuemorefarmasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
-			
-	# 		assetdescription = {"assetname":assetname,"assetcustomfield":assetcustomfield}
-	# 	    message = {"op-return":issuemorefarmasset_return,"assetdescription":assetdescription}
-	# 		publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
-		
-	# 	except Exception as e:
-	# 		print e,"issuemoreasset error"
-	# 		message = {"op-return":"error","message":e}
-	# 	    publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
-
-
-
-
+	
 	def createExchange(self,ownasset,otherasset):
 		try:
 			# Here asset will be a dictionary ex: {"asset1":1}
@@ -174,5 +158,26 @@ if __name__ == '__main__':
 	chainname = cf.getConfig("chainname")
 
 	FL = Farmland(rpcuser,rpcpasswd,rpchost,rpcport,chainname)
+	FL.connectTochain()
 	pub_Init()
+
+
+
+
+
+# def issuemoreFarmasset(self,assetname,assetcustomfield):
+	# 	try:
+	# 		assetaddress = self.mchain.accountAddress()
+	# 		issuemorefarmasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
+			
+	# 		assetdescription = {"assetname":assetname,"assetcustomfield":assetcustomfield}
+	# 	    message = {"op-return":issuemorefarmasset_return,"assetdescription":assetdescription}
+	# 		publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
+		
+	# 	except Exception as e:
+	# 		print e,"issuemoreasset error"
+	# 		message = {"op-return":"error","message":e}
+	# 	    publish_handler({"messagecode":"issuemoreasset","messagetype":"resp","message":message})
+
+
 
