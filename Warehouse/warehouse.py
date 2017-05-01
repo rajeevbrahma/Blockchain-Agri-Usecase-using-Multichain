@@ -29,6 +29,8 @@ class Warehouse:
         return self.mchain.multichainConnect()
     def warehouseAddress(self):
         return self.mchain.accountAddress()
+    def assetbalances(self):
+        print self.mchain.gettotalbalances()
 
     def assetsubscribe(self,asset):
         self.mchain.subscribeToasset(asset)
@@ -145,6 +147,9 @@ def callback(message,channel):
                     WH.queryassettranx(message["asset"])
             if message["messagecode"] == "assetdetails":
                     WH.queryasstdetails(message["asset"])
+            if message["messagecode"] == "assetbalance":
+                    WH.assetbalances()
+        
             
     except Exception as e:
         print e,"callback error"

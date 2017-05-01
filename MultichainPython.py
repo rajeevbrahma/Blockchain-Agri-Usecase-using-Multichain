@@ -26,6 +26,14 @@ class Multichainpython:
 		except Exception as e:
 			logging.error("The multichainConnect error %s,%s"%(e,type(e)))
 			return False
+	def gettotalbalances(self):
+		try:
+		    totalbalances = self.api.gettotalbalances()
+		    return totalbalances
+		except Exception as e:
+		    print e
+		    return False
+
 	def accountAddress(self):
 		try:
 			accountaddress = self.api.getaddressesbyaccount("")[0]

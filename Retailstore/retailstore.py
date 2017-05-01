@@ -30,6 +30,8 @@ class Retailstore:
         return self.mchain.multichainConnect()
     def retailstoreAddress(self):
         return self.mchain.accountAddress()
+    def assetbalances(self):
+        print self.mchain.gettotalbalances()
 
     def assetsubscribe(self,asset):
         self.mchain.subscribeToasset(asset)
@@ -126,7 +128,9 @@ def callback(message,channel):
                     RS.queryassettranx(message["asset"])
             if message["messagecode"] == "assetdetails":
                     RS.queryasstdetails(message["asset"])
-        
+            if message["messagecode"] == "assetbalance":
+                    RS.assetbalances()
+
     except Exception as e:
         print e,"callback error"
         #logging.error("The callback exception is %s,%s"%(e,type(e)))           

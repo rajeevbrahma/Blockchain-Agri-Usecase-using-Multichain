@@ -28,6 +28,8 @@ class Farmland:
 		return self.mchain.multichainConnect()  
 	def farmAddress(self):
 		return self.mchain.accountAddress()
+	def assetbalances(self):
+		print self.mchain.gettotalbalances()	
 
 	def assetsubscribe(self,asset):
 		self.mchain.subscribeToasset(asset)
@@ -105,7 +107,9 @@ def callback(message,channel):
 		            FL.queryassettranx(message["asset"])
 		    if message["messagecode"] == "assetdetails":
 		            FL.queryasstdetails(message["asset"])
-  
+  			if message["messagecode"] == "assetbalance":
+                    FL.assetbalances()
+
 	except Exception as e:
 	    logging.error("The callback exception is %s,%s"%(e,type(e)))            
 	    logging.info(message)
