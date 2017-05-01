@@ -70,7 +70,7 @@ class Warehouse:
     def issuemoreasset(self,assetname,assetcustomfield):
         try:
             assetaddress = self.mchain.accountAddress()
-            issuemoreasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcuctomfield)
+            issuemoreasset_return = self.mchain.issueMoreAsset(assetaddress,assetname,assetcustomfield)
             
             assetdescription = {"assetname":assetname,"assetcustomfield":assetcustomfield}
             message = {"op-return":issuemoreasset_return,"assetdescription":assetdescription}
@@ -135,7 +135,7 @@ def callback(message,channel):
             if message["messagecode"] == "issueasset":
                     WH.issueWHasset()
             if message["messagecode"] == "issuemoreasset":
-                    WH.issueFSasset(message["asset"],message["assetcustomfield"])
+                    WH.issuemoreasset(message["asset"],message["assetcustomfield"])
                     
             if message["messagecode"] == "createexchange":
                     WH.issueWHasset()

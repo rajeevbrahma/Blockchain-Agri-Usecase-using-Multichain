@@ -52,7 +52,7 @@ class Multichainpython:
 	
 	def issueMoreAsset(self,assetaddress,assetname,assetcustomfield):
 		try:
-			issueassetmore = self.api.issue(assetaddress,assetname,0,0,assetcustomfield)
+			issueassetmore = self.api.issuemore(assetaddress,assetname,0,0,assetcustomfield)
 			return issueassetmore
 		except Exception as e:
 			logging.error("The issueMoreAsset error %s,%s"%(e,type(e)))		
