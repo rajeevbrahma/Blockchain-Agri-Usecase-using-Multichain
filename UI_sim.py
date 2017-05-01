@@ -55,22 +55,33 @@ def publish_handler(channel,message):
 def main():
 
 	while(1):
-		inpt = raw_input("CHOOSE ONE OPTION \t\t\t\n1 create farmasset,\n2 create wareasset,\n3 createexchange,\n4 decodeexchange,\n5 totalbalances\n\n\n\t")
+		inpt = raw_input("CHOOSE ONE OPTION \t\t\t\n1 create farmasset,\n2 create wareasset,\n3 create retailasset , \n4 createexchange - from Farmland,\n5 decodeexchange - in warehouse,\n6 createexchange - from warehouse \n7 decodeexchange - in retailstore \n0 totalbalances\n\n\n\t")
 		if(inpt == "1"):
 			publish_handler(farmchannel,{"messagecode":"issueasset","messagetype":"req"})
 		elif(inpt == "2"):
 			publish_handler(warechannel,{"messagecode":"issueasset","messagetype":"req"})
+
 		elif(inpt == "3"):
-			print "you have selected 3"
-			publish_handler(farmchannel,{"messagetype":"req","messagecode":"createexchange","ownasset":{"crop3":20},"otherasset":{"money2":20}})
-		elif(inpt == "4"):	
-			publish_handler(warechannel,{"messagetype":"req","messagecode":"decodeexchange","hexblob":hexblob,"ownasset":{"money2":20},"otherasset":{"crop3":20}})
-		elif(inpt == "5"):
-			inpt2 = raw_input("1) farmland  2) warehouse \n\n\t")
+			publish_handler(warechannel,{"messagecode":"issueasset","messagetype":"req"})	
+		elif(inpt == "4"):
+			publish_handler(farmchannel,{"messagetype":"req","messagecode":"createexchange","ownasset":{"crop":20},"otherasset":{"warehousemoney":20}})
+		elif(inpt == "5"):	
+			publish_handler(warechannel,{"messagetype":"req","messagecode":"decodeexchange","hexblob":hexblob,"ownasset":{"warehousemoney":20},"otherasset":{"crop":20}})
+		
+		elif(inpt == "6"):
+			publish_handler(farmchannel,{"messagetype":"req","messagecode":"createexchange","ownasset":{"warehousemoney":20},"otherasset":{"retailmoney":20}})
+		elif(inpt == "7"):	
+			publish_handler(warechannel,{"messagetype":"req","messagecode":"decodeexchange","hexblob":hexblob,"ownasset":{"retailmoney":20},"otherasset":{"warehousemoney":20}})
+			
+
+		elif(inpt == "0"):
+			inpt2 = raw_input("1) farmland  2) warehouse 3) retailstore \n\n\t")
 			if inpt2 == "1":
 				publish_handler(farmchannel,{"messagetype":"req","messagecode":"assetbalance"})
 			if inpt2 == "2":	
-				publish_handler(warechannel,{"messagetype":"req","messagecode":"assetbalance"})	
+				publish_handler(warechannel,{"messagetype":"req","messagecode":"assetbalance"})
+			if inpt2 == "3":	
+				publish_handler(retilchannel,{"messagetype":"req","messagecode":"assetbalance"})		
 		else: 
 			pass
 
@@ -83,6 +94,7 @@ if __name__ == '__main__':
 	hexblob = None
 	farmchannel = "farmland"
 	warechannel = "warehouse"
+	retilchannel = "retailstore"
 	pubnub = None
 	# PUBNUB KEYS
 	pub_key = 'pub-c-abde89c6-da51-4c04-8c2b-9c3984e1182d'

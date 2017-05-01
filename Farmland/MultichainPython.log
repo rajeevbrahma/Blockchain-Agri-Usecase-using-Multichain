@@ -1,0 +1,9 @@
+2017-05-01 14:53:40, INFO, Request: {"chain_name": "chain1", "version": "1.1", "params": [""], "method": "getaddressesbyaccount", "id": 1}
+2017-05-01 14:53:40, DEBUG, Starting new HTTP connection (1): localhost
+2017-05-01 14:53:40, DEBUG, http://localhost:4286 "POST / HTTP/1.1" 200 74
+2017-05-01 14:53:40, INFO, Response: {u'id': 1, u'result': [u'1V6j9XztfDJZCbmcaFQbjPNAGJZqxhofdY3HdX'], u'error': None}
+2017-05-01 14:53:40, DEBUG, Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None)
+2017-05-01 14:53:40, DEBUG, Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None)
+2017-05-01 14:53:40, DEBUG, Starting new HTTP connection (1): pubsub.pubnub.com
+2017-05-01 14:53:41, DEBUG, http://pubsub.pubnub.com:80 "GET /subscribe/sub-c-d17a927c-e171-11e6-802a-02ee2ddab7fe/farmland/0/0?pnsdk=PubNub-Python%2F3.8.3&uuid=4eb2730e-5110-489a-9479-7bc3abe687ef HTTP/1.1" 200 24
+2017-05-01 14:53:41, INFO, CONNECTED
