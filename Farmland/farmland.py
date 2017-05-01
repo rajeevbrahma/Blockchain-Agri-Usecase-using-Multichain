@@ -1,14 +1,12 @@
-import os
+'''RASPBERRY PI PROGRAM'''
+
 import Savoir
 import logging
-import simplejson as json
-
-from pubnub import Pubnub
-
-parentpath = os.path.dirname(os.getcwd())
-sys.path.insert(0,parentpath)
 from MultichainPython import Multichainpython
+import simplejson as json
+from pubnub import Pubnub
 from fileparser import ConfigFileParser
+
 
 
 LOG_FILENAME = 'Farmland.log'
@@ -79,7 +77,7 @@ def pub_Init():
         global pubnub
         try:
                 pubnub = Pubnub(publish_key=pub_key,subscribe_key=sub_key) 
-                pubnub.subscribe(channels=subchannel, callback=callback,error=error,
+                pubnub.subscribe(channels='farmland', callback=callback,error=error,
                 connect=connect, reconnect=reconnect, disconnect=disconnect)    
                 return True
         except Exception as pubException:
@@ -109,7 +107,7 @@ def callback(message,channel):
 
 def publish_handler(message):
         try:
-                pbreturn = pubnub.publish(channel = pubchannel ,message = message,error=error)
+                pbreturn = pubnub.publish(channel = channel ,message = message,error=error)
 
         except Exception as error_pdhandler:
                 print error_pbhandler
@@ -134,28 +132,25 @@ def disconnect(message):
 
 
 if __name__ == '__main__':
+        channel = "UI"
         pubnub = None
-        filename = config.ini
-        cf = ConfigFileParser()		
-		cf.parseConfig(filename)
-
         # PUBNUB KEYS
-        pub_key = cf.getConfig("pubkey")
-        sub_key = cf.getConfig("subkey")  
-
-        pubchannel = cf.getConfig("pubchannel")
-        subchannel = cf.getConfig("subchannel")
-
-        # Multichain  Credentials
-        rpcuser= cf.getConfig("rpcuser")
-        rpcpasswd=cf.getConfig("rpcpasswd")
-        rpchost = cf.getConfig("rpchost")
-        rpcport = cf.getConfig("rpcport")
-        chainname = cf.getConfig("chainname")
-
+        pub_key = 'pub-c-abde89c6-da51-4c04-8c2b-9c3984e1182d'
+        sub_key = 'sub-c-d17a927c-e171-11e6-802a-02ee2ddab7fe'
+        
+        rpcuser='multichainrpc'
+        rpcpasswd='CTBb7ms14EE4XgJaMzv5PdYEScmb6VPYzcCxHgcG1QQM'
+        rpchost = 'localhost'
+        rpcport = '6296'
+        chainname = 'chain1'
         FL = Farmland(rpcuser,rpcpasswd,rpchost,rpcport,chainname)
         print FL.connectTochain()
         print FL.farmAddress()
         pub_Init()
 
-        
+        cf = ConfigFileParser()
+		
+		retrn = cf.parseConfig(self.filename)
+
+		cf.parseConfig(self.filename)
+		cf.getConfig("no_of_workflows")
